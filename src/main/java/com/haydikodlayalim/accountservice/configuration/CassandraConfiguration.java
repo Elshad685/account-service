@@ -1,9 +1,10 @@
-package com.haydikodlayalim.accountservice;
+package com.haydikodlayalim.accountservice.configuration;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
+import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 @Configuration
@@ -29,5 +30,10 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
     @Override
     protected String getContactPoints() {
         return contactPoint;
+    }
+
+    @Override
+    public SchemaAction getSchemaAction() {
+        return  SchemaAction.CREATE_IF_NOT_EXISTS;
     }
 }
