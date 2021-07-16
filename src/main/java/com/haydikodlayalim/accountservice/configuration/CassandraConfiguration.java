@@ -43,13 +43,4 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
         return SchemaAction.CREATE_IF_NOT_EXISTS;
     }
 
-    @Override
-    public CassandraClusterFactoryBean cluster() {
-        CassandraClusterFactoryBean cluster = super.cluster();
-
-        cluster.("127.0.0.1");
-        cluster.setPort(9142);
-
-        return cluster;
-    }
 }
