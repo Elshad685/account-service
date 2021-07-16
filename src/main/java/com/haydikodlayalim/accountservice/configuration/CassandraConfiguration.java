@@ -1,14 +1,16 @@
 package com.haydikodlayalim.accountservice.configuration;
 
+import com.datastax.oss.driver.api.core.CqlSession;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
-import org.springframework.data.cassandra.config.SchemaAction;
+import org.springframework.data.cassandra.config.*;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
+import org.springframework.data.cassandra.*;
 
 @Configuration
-@EnableCassandraRepositories
+@EnableCassandraRepositories(basePackages = "com.baeldung.spring.data.cassandra.repository")
 public class CassandraConfiguration extends AbstractCassandraConfiguration {
     @Value("${spcloud.cassandra.keyspace.name}")
     private String keyspaceName;
@@ -16,6 +18,10 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
     private int port;
     @Value("${spcloud.cassandra.contact.point}")
     private String contactPoint;
+    @Value("spcloud.cassandra.password")
+    private String password;
+    @Value("spcloud.cassandra.username")
+    private String username;
 
     @Override
     protected String getKeyspaceName() {
@@ -34,6 +40,16 @@ public class CassandraConfiguration extends AbstractCassandraConfiguration {
 
     @Override
     public SchemaAction getSchemaAction() {
-        return  SchemaAction.CREATE_IF_NOT_EXISTS;
+        return SchemaAction.CREATE_IF_NOT_EXISTS;
+    }
+
+    @Override
+    public CassandraClusterFactoryBean cluster() {
+        CassandraClusterFactoryBean cluster = super.cluster();
+
+        cluster.("127.0.0.1");
+        cluster.setPort(9142);
+
+        return cluster;
     }
 }
