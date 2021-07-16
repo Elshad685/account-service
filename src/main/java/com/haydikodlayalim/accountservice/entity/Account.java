@@ -1,10 +1,25 @@
 package com.haydikodlayalim.accountservice.entity;
 
 public class Account {
-  private  String id;
-    private  String username;
-    private  String email;
-    private  String passwd;
+    private String id;
+    private String username;
+    private String email;
+    private String passwd;
+
+    public Account() {
+
+    }
+
+    public Account(String id) {
+        this.id = id;
+    }
+
+    public Account(String id, String username, String email, String passwd) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.passwd = passwd;
+    }
 
     public String getId() {
         return id;
